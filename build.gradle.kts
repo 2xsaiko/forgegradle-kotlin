@@ -13,7 +13,7 @@ buildscript {
   }
 }
 
-group = "net.minecraftforge.gradle"
+group = "net.minecraftforge"
 version = "1.0.0"
 
 plugins {
