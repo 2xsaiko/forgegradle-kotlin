@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val kotlin_version: String by extra
 val gradle_kotlin_dsl_version: String by extra
 
+apply(from = "publish.gradle")
+
 buildscript {
   val kotlin_version: String by extra
   repositories {
@@ -13,25 +15,27 @@ buildscript {
   }
 }
 
-group = "net.minecraftforge"
+group = "net.minecraftforge.gradle"
 version = "1.0.0"
 
 plugins {
-  java
-  `kotlin-dsl`
+  `java-library`
 }
+
+apply(plugin = "kotlin")
 
 repositories {
   mavenCentral()
-  maven { url = uri("https://repo.gradle.org/gradle/libs-releases-local/") }
+  mavenLocal()
+  maven("https://repo.gradle.org/gradle/libs-releases-local/")
 }
 
 dependencies {
-  compile(gradleApi())
-  compile(kotlin("stdlib-jdk8", kotlin_version))
+  implementation(gradleApi())
+  implementation(kotlin("stdlib-jdk8", kotlin_version))
 
-  compile(project(":forgegradle"))
-  compile("org.gradle", "gradle-kotlin-dsl", gradle_kotlin_dsl_version)
+  api("net.minecraftforge.gradle", "forgegradle", "3.0.0+")
+  implementation("org.gradle", "gradle-kotlin-dsl", gradle_kotlin_dsl_version)
 }
 
 tasks.withType<KotlinCompile> {

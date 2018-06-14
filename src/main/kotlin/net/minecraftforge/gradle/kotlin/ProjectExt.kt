@@ -1,8 +1,8 @@
 package net.minecraftforge.gradle.kotlin
 
-import net.minecraftforge.gradle.plugin.ForgeGradleExtension
-import net.minecraftforge.gradle.plugin.ForgeGradlePlugin
-import net.minecraftforge.gradle.plugin.ForgeGradlePluginInstance
+import net.minecraftforge.gradle.moddev.ForgeGradleExtension
+import net.minecraftforge.gradle.moddev.ForgeGradlePlugin
+import net.minecraftforge.gradle.moddev.ForgeGradlePluginInstance
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 

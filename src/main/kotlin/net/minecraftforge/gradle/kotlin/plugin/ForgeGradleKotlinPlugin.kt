@@ -1,7 +1,7 @@
 package net.minecraftforge.gradle.kotlin.plugin
 
 import net.minecraftforge.gradle.kotlin.setProjectFor
-import net.minecraftforge.gradle.plugin.ForgeGradlePlugin
+import net.minecraftforge.gradle.moddev.ForgeGradlePlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

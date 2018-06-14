@@ -1,12 +1,13 @@
 package net.minecraftforge.gradle.kotlin
 
 import net.minecraftforge.gradle.api.mapping.MappingProvider
-import net.minecraftforge.gradle.mappings.MCPMappingProvider
-import net.minecraftforge.gradle.repo.MCLauncherStreamer
-import net.minecraftforge.gradle.repo.MagicalRepo
+import net.minecraftforge.gradle.shared.mappings.MCPMappingProvider
+import net.minecraftforge.gradle.shared.repo.CustomRepository
+import net.minecraftforge.gradle.shared.repo.MCLauncherArtifactProvider
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.kotlin.dsl.maven
 
 // TODO: factor these out in FG so there doesn't need to be duplicate code
 
@@ -28,18 +29,17 @@ fun RepositoryHandler.mappings(action: Action<MappingProvider>, provider: Mappin
 fun RepositoryHandler.mcp(): MCPMappingProvider =
   project.objects.newInstance(MCPMappingProvider::class.java)
 
-fun RepositoryHandler.forgeMaven() = maven {
-  name = "forge"
-  setUrl("http://files.minecraftforge.net/maven")
-}
+fun RepositoryHandler.forgeMaven() =
+  maven("http://files.minecraftforge.net/maven") {
+    name = "forge"
+  }
 
 fun RepositoryHandler.minecraftMaven() {
-  MagicalRepo.add(project.repositories, "mclauncher", "https://launcher.mojang.com/", MCLauncherStreamer())
-  maven {
+  CustomRepository.add(project.repositories, "mclauncher", "https://launcher.mojang.com/", MCLauncherArtifactProvider(), null)
+  maven("https://libraries.minecraft.net") {
     name = "mclibraries"
-    setUrl("https://libraries.minecraft.net")
     metadataSources {
-      artifact() // Don't even start looking for these guys' deps... It ends in hell
+      it.artifact() // Don't even start looking for these guys' deps... It ends in hell
     }
   }
 }

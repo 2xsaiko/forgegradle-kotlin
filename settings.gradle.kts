@@ -1,3 +1,3 @@
 rootProject.name = "forgegradle-kotlin"
 
-include("forgegradle")
+enableFeaturePreview("STABLE_PUBLISHING")
